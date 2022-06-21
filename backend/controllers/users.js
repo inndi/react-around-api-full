@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 function handleErr(err, res) {
   if (err.name === 'CastError' || 'ValidationError') {
@@ -81,4 +82,20 @@ module.exports.updateAvatar = (req, res) => {
     .catch((err) => {
       handleErr(err, res);
     });
+};
+
+module.exports.login = (req, res) => {
+  const { email, password } = req.body;
+
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        '4b0996963f9be042b22513a58bddaa061e7b9639840e0ad6687ebba5797cb992',
+        { expressIn: '7d' }
+      );
+      res.send({ token });
+    })
+    .catch((err) => { res.status(401).send({ message: err.message }) });
+
 };
