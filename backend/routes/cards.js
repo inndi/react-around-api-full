@@ -15,14 +15,14 @@ const validateURL = (value, helpers) => {
     return value;
   }
   return helpers.error('string.uri');
-}
+};
 
 router.get('/', getCards);
 
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().custom(validateUrl),
+    link: Joi.string().required().custom(validateURL),
   }),
 }), createCard);
 
