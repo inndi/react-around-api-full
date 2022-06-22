@@ -1,49 +1,60 @@
 const Card = require('../models/card');
+const NotFoundError = require('../errors/not-found-error');
+const ValidationError = require('../errors/validation-error');
+const AuthorizationError = require('../errors/authorization-error');
 
-function handleErr(err, res) {
-  if (err.name === 'CastError' || 'ValidationError') {
-    res.status(400).send({ message: 'NotValid Data' });
-  } else if (err.name === 'DocumentNotFoundError') {
-    res.status(404).send({ message: 'Card not found' });
-  } else {
-    res.status(500).send({ message: 'An error has occurred on the server' });
-  }
-}
+// function handleErr(err, res) {
+//   if (err.name === 'CastError' || 'ValidationError') {
+//     res.status(400).send({ message: 'NotValid Data' });
+//   } else if (err.name === 'DocumentNotFoundError') {
+//     res.status(404).send({ message: 'Card not found' });
+//   } else {
+//     res.status(500).send({ message: 'An error has occurred on the server' });
+//   }
+// }
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .orFail()
     .then((cards) => {
+      if (!cards) {
+        throw new NotFoundError('No cards found');
+      };
       res.send({ data: cards });
     })
-    .catch((err) => {
-      handleErr(err, res);
-    });
+    .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const owner = req.user._id;
   const { name, link } = req.body;
 
   Card.create({ name, link, owner })
-    .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      handleErr(err, res);
-    });
+    .then((card) => {
+      if (!card) {
+        throw new ValidationError('Invalid data');
+      }
+      res.send({ data: card });
+
+    })
+    .catch(next);
 };
 
-module.exports.deleteCard = (req, res) => {
-  const { id } = req.params;
+module.exports.deleteCard = (req, res, next) => {
+  const { id } = req.user._id;/////////////////////////////////////
 
   Card.findByIdAndRemove(id)
     .orFail()
-    .then(() => res.send({ message: 'card deleted' }))
-    .catch((err) => {
-      handleErr(err, res);
-    });
+    .then((removed) => {
+      if (!removed) {
+        throw new AuthorizationError('Authorization required');
+      };
+      res.send({ message: 'card deleted' });
+    })
+    .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   const { id } = req.params;
 
   Card.findByIdAndUpdate(
@@ -52,12 +63,10 @@ module.exports.likeCard = (req, res) => {
     { new: true },
   )
     .then(() => res.send({ message: 'like added' }))
-    .catch((err) => {
-      handleErr(err, res);
-    });
+    .catch(next);
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   const { id } = req.params;
 
   Card.findByIdAndUpdate(
@@ -66,7 +75,5 @@ module.exports.dislikeCard = (req, res) => {
     { new: true },
   )
     .then(() => res.send({ message: 'like deleted' }))
-    .catch((err) => {
-      handleErr(err, res);
-    });
+    .catch(next);
 };
