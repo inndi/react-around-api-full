@@ -1,0 +1,18 @@
+.header__close-btn {
+  margin-right: 21px;
+  visibility: hidden;
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  background-image: url('../../../images/plus.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: rotate(45deg);
+  cursor: pointer;
+  top: -40px;
+  right: -40px;
+  padding: 0;
+  border: none;
+  transition: opacity 0.2s linear;
+}

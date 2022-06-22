@@ -1,0 +1,28 @@
+.profile {
+  display: grid;
+  grid-template-areas: 
+  'photo name-box add-btn'
+  'photo about-me add-btn';
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 40px 0 50px;
+}
+
+@media screen and (max-width: 920px) {
+  .profile {
+    margin: 0 auto;
+    max-width: 664px;
+  }  
+}
+
+@media screen and (max-width: 780px) {
+  .profile {
+    grid-template-areas: 
+    'photo'
+    'name-box'
+    'about-me'
+    'add-btn';
+    grid-template-columns: auto;
+    justify-items: center;
+    padding: 42px 0 36px;
+  }  
+}

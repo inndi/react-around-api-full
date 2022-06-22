@@ -1,0 +1,23 @@
+.popup__title {
+  margin: 0;
+  padding-bottom: 54px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.popup_delete .popup__title {
+  padding-bottom: 0;
+  line-height: 1;
+}
+
+.popup_edit-photo .popup__title{
+  line-height: 1;
+}
+
+@media screen and (max-width: 631px) {
+  .popup__title {
+    font-size: 18px;
+    padding-bottom: 76px;
+  }
+}

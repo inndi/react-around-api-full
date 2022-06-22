@@ -1,0 +1,8 @@
+.card__img {
+  width: 282px;
+  height: 282px;
+  grid-area: image;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 282px 282px;
+}

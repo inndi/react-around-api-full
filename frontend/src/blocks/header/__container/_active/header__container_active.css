@@ -1,0 +1,20 @@
+.header__container_active {
+  visibility: hidden;
+  cursor: auto;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header__container_active:hover {
+  opacity: 1;
+}
+
+.header__container_active .header__email {
+  visibility: visible;
+  margin: 12px 0 18px;
+}
+
+.header__container_active .header__button {
+  visibility: visible;
+  margin-bottom: 40px;
+}

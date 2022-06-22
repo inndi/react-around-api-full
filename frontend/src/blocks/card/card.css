@@ -1,0 +1,13 @@
+.card {
+  background: #fff;
+  border-radius: 10px;
+  display: grid;
+  grid-template-areas: 
+  'image image'
+  'title like-btn'
+  'title likes-amount';
+  grid-template-columns: 1fr auto;
+  justify-self: center;
+  overflow: hidden;
+  position: relative;
+}

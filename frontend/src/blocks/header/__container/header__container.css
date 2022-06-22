@@ -1,0 +1,26 @@
+.header__container {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 921px) {
+  .header__container {
+    margin-right: 27px;
+  }
+}
+
+@media screen and (max-width: 656px) {
+  .header__container {
+    background-image: url(/src/images/nav.svg);
+    background-repeat: no-repeat;
+    align-self: flex-end;
+    background-position: right;
+    cursor: pointer;
+    transition: opacity 0.2s linear;
+  }
+
+  .header__container:hover {
+    opacity: 0.6;
+  }
+
+}

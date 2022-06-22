@@ -1,0 +1,23 @@
+.header__link {
+  margin: 0;
+  padding: 0;
+  align-self: center;
+  text-decoration: none;
+  color: white;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  transition: opacity 0.2s linear;
+}
+
+@media screen and (max-width: 921px) {
+  .header__link {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 656px) {
+  .header__link {
+    font-size: 14px;
+  }
+}
