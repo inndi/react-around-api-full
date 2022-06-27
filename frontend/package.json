@@ -1,5 +1,5 @@
 {
-  "homepage": "https://inndi.github.io/around-react-auth",
+  "homepage": "https://inndi.github.io",
   "name": "around-react",
   "version": "0.1.0",
   "private": true,
@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy": "npm run build && scp -r ./build/* inndi.spivakova@around-the-us.students.nomoreparties.sbs:/home/inndi.spivakova/react-around-api-full/frontend"
+    "deploy": "npm run build && scp -r ./build/* inndi.spivakova@around-the-us.students.nomoreparties.sbs:/home/inndi.spivakova/react-around-api-full/around-frontend"
   },
   "eslintConfig": {
     "extends": [
