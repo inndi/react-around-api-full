@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    const err = new Error('Authorizationnnnnn required');
+    const err = new Error('Authorization required');
     err.statusCode = 403;
 
     next(err);
@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, 'key');
   } catch (e) {
-    const err = new Error('Authorizationnnnnnn required');
+    const err = new Error('Authorization required');
     err.statusCode = 403;
 
     next(err);
