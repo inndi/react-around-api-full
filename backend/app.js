@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-// let cors = require('cors');
+let cors = require('cors');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -15,8 +15,8 @@ const {
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,7 +43,7 @@ app.post('/signup', celebrate({
   }).unknown(true),
 }), createUser);
 
-// app.use(auth);
+app.use(auth);
 
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
