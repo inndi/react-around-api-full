@@ -55,6 +55,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
+  console.log(name, about, avatar, email, password);
 
   bcrypt.hash(password, 10)
     .then(hash => User.create({ name, about, avatar, email, password: hash }))
@@ -65,7 +66,7 @@ module.exports.createUser = (req, res, next) => {
 
         throw err;///////////////////////////////////////////////////
       };
-      console.log(user);
+      // console.log(user);
       res.send({ data: user })
     })
     .catch(next);
@@ -73,6 +74,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
+  console.log(req.user._id);
   const { id } = req.user._id;/////////////////////////////////
 
   User.findByIdAndUpdate(
@@ -88,6 +90,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!user) {
         throw new ValidationError('Invalid data');
       };
+
       res.send({ data: user });
     })
     .catch(next);

@@ -22,11 +22,11 @@ const {
 //   origin: 'https://www.around-the-us.students.nomoreparties.sbs'
 // }));
 
-app.use(cors());
-app.options('*', cors());
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+app.options('*', cors());
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
