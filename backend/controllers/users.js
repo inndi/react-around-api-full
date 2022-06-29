@@ -14,7 +14,6 @@ const AuthorizationError = require('../errors/authorization-error');
 //     res.status(500).send({ message: 'An error has occurred on the server' });
 //   }
 // }
-
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .orFail()
