@@ -14,12 +14,12 @@ const {
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
-app.use(cors({
-  origin: 'https://www.around-the-us.students.nomoreparties.sbs'
-}));
+// app.use(cors({
+//   origin: 'https://www.around-the-us.students.nomoreparties.sbs'
+// }));
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
