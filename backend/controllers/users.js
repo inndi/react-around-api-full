@@ -22,7 +22,7 @@ module.exports.getUsers = (req, res, next) => {
       if (!users) {
         throw new NotFoundError('No users found');
       };
-      res.send(users);
+      res.send({ data: users });
     })
     .catch(next);
 };
@@ -35,7 +35,7 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('No user with matching ID found');
       };
-      res.send(user);
+      res.send({ data: user });
     })
     .catch(next);
 };
@@ -48,14 +48,13 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('No user with matching ID found');
       };
-      res.send(user);
+      res.send({ data: user });
     })
     .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
-
 
   bcrypt.hash(password, 10)
     .then(hash => User.create({ name, about, avatar, email, password: hash }))
@@ -66,14 +65,14 @@ module.exports.createUser = (req, res, next) => {
 
         throw err;///////////////////////////////////////////////////
       };
-      res.send(user)
+      console.log(user);
+      res.send({ data: user })
     })
     .catch(next);
 };
 
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
-  console.log(req.user._id);
   const { id } = req.user._id;/////////////////////////////////
 
   User.findByIdAndUpdate(
@@ -89,8 +88,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!user) {
         throw new ValidationError('Invalid data');
       };
-
-      res.send(user);
+      res.send({ data: user });
     })
     .catch(next);
 };
@@ -112,7 +110,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new ValidationError('Invalid data');
       };
-      res.send(user);
+      res.send({ data: user });
     })
     .catch(next);
 };
