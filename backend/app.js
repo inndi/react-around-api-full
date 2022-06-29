@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-let cors = require('cors');
+// let cors = require('cors');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -22,11 +22,6 @@ const {
 //   origin: 'https://www.around-the-us.students.nomoreparties.sbs'
 // }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.use(cors());
-// app.options('*', cors());
 
 app.use(function (req, res, next) {
 
@@ -44,6 +39,14 @@ app.use(function (req, res, next) {
   }
   next();
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(cors());
+// app.options('*', cors());
+
+
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
