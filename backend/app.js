@@ -15,7 +15,7 @@ const {
 const auth = require('./middlewares/auth');
 
 app.use(cors({
-  origin: '*'
+  origin: 'https://www.around-the-us.students.nomoreparties.sbs'
 }));
 
 // app.use(cors());
