@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 
-mongoose.connect('mongodb://localhost:27017/aroundtheus');
+mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(requestLogger);
 

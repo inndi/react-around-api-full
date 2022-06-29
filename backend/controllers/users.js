@@ -60,14 +60,12 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then(hash => User.create({ name, about, avatar, email, password: hash }))
     .then((user) => {
-      console.log(user);
       if (!user) {
         const err = new Error('An email already exists');/////////////////////
         err.statusCode = 409;
 
         throw err;///////////////////////////////////////////////////
       };
-      // console.log(user);
       res.send({ data: user })
     })
     .catch(next);
@@ -75,8 +73,8 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
-  console.log(req.user._id);
-  const { id } = req.user._id;/////////////////////////////////
+  // console.log(req.user._id);
+  const { id } = req.params;/////////////////////////////////
 
   User.findByIdAndUpdate(
     id,
