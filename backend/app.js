@@ -13,10 +13,13 @@ const {
   login
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: '*'
+}));
+
+// app.use(cors());
+// app.options('*', cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
