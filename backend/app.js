@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-// let cors = require('cors');
+let cors = require('cors');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,28 +23,28 @@ const {
 // }));
 
 
-app.use(function (req, res, next) {
+// app.use(function (req, res, next) {
 
-  res.header('Access-Control-Allow-Origin', "*");
+//   res.header('Access-Control-Allow-Origin', "*");
 
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-  const requestHeaders = req.headers['access-control-request-headers'];
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
+//   const { method } = req;
+//   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+//   const requestHeaders = req.headers['access-control-request-headers'];
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Origin', "*");
+//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
 
-    return res.end():
-  }
-  next();
-});
+//     return res.end():
+//   }
+//   next();
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 
 
