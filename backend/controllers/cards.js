@@ -20,7 +20,7 @@ module.exports.getCards = (req, res, next) => {
       if (!cards) {
         throw new NotFoundError('No cards found');
       };
-      res.send({ data: cards });
+      res.send(cards);
     })
     .catch(next);
 };

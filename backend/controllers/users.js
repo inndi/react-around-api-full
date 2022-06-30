@@ -34,7 +34,7 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('No user with matching ID found');
       };
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(next);
 };
