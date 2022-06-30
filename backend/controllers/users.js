@@ -65,7 +65,7 @@ module.exports.createUser = (req, res, next) => {
         throw err;///////////////////////////////////////////////////
       };
       console.log(user);
-      res.send({ data: user })
+      res.send(user)
     })
     .catch(next);
 };
