@@ -53,18 +53,18 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const { email, password } = req.body;
 
   bcrypt.hash(password, 10)
-    .then(hash => User.create({ name, about, avatar, email, password: hash }))
+    .then(hash => User.create({ email, password: hash }))
     .then((user) => {
-      // if (!user) {
-      //   const err = new Error('An email already exists');/////////////////////
-      //   err.statusCode = 409;
+      if (!user) {
+        const err = new Error('An email already exists');/////////////////////
+        err.statusCode = 409;
 
-      //   throw err;///////////////////////////////////////////////////
-      // };
-      res.send(user)
+        throw err;///////////////////////////////////////////////////
+      };
+      res.send(user);
     })
     .catch(next);
 };
