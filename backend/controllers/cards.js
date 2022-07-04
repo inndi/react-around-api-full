@@ -41,7 +41,7 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  const { id } = req.user._id;/////////////////////////////////////
+  const { id } = req.params;
 
   Card.findByIdAndRemove(id)
     .orFail()
@@ -62,7 +62,9 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .then(() => res.send({ message: 'like added' }))
+    .then((card) => {
+      res.send(card);
+    })
     .catch(next);
 };
 
@@ -74,6 +76,8 @@ module.exports.dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .then(() => res.send({ message: 'like deleted' }))
+    .then((card) => {
+      res.send(card);
+    })
     .catch(next);
 };
