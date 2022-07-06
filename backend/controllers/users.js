@@ -65,7 +65,7 @@ module.exports.createUser = (req, res, next) => {
 
 
     .then((user) => {
-      console.log('reg', user);
+      console.log('reg', user);///////////////////////////////////
       if (!user) {
         const err = new Error('An email already exists');
         err.statusCode = 409;
@@ -126,11 +126,11 @@ module.exports.updateAvatar = (req, res, next) => {
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log('user_____', email);
+  console.log('user_____', email);///////////////////////////////////////
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log('user_____', user);
+      console.log('user_____', user);/////////////////////////////////////
       if (!user) {
         throw new AuthorizationError('Incorrect password or email');
       };
@@ -139,6 +139,7 @@ module.exports.login = (req, res, next) => {
         '4b0996963f9be042b22513a58bddaa061e7b9639840e0ad6687ebba5797cb992',
         { expiresIn: '7d' }
       );
+      console.log(token);////////////////////////////////////////
       res.send({ token });
     })
     .catch(next);

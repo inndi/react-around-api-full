@@ -52,7 +52,7 @@ app.options('*', cors());
 
 
 
-mongoose.connect('mongodb://localhost:27017/aroundtheus');
+mongoose.connect('mongodb://localhost:27017/test');
 
 app.use(requestLogger);
 
