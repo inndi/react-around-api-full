@@ -52,11 +52,13 @@ app.options('*', cors());
 
 
 
-mongoose.connect('mongodb://localhost:27017/test', {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect('mongodb://localhost:27017/test',
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  }
+);
 
 app.use(requestLogger);
 
