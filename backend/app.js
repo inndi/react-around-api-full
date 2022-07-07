@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 let cors = require('cors');
-// require('dotenv').config();
+require('dotenv').config();
 
 const app = express();
 const bodyParser = require('body-parser');

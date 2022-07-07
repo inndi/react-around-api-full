@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const NotFoundError = require('../errors/not-found-error');
 const ValidationError = require('../errors/validation-error');
 const AuthorizationError = require('../errors/authorization-error');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 
 // function handleErr(err, res) {
@@ -136,7 +137,7 @@ module.exports.login = (req, res, next) => {
       };
       const token = jwt.sign(
         { _id: user._id },
-        '4b0996963f9be042b22513a58bddaa061e7b9639840e0ad6687ebba5797cb992',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' }
       );
       console.log(token);////////////////////////////////////////
