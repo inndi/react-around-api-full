@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const NotFoundError = require('../errors/not-found-error');
 const ValidationError = require('../errors/validation-error');
 const AuthorizationError = require('../errors/authorization-error');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 
 // function handleErr(err, res) {
