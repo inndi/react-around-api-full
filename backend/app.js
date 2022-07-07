@@ -32,30 +32,24 @@ app.use(requestLogger);
 
 app.use(helmet());
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Server will crash now');
-  }, 0);
-});
-
 app.post('/signin',
-  // celebrate({
-  //   body: Joi.object().keys({
-  //     email: Joi.string().required().email(),
-  //     password: Joi.string().required().min(8),
-  //   }),
-  // }),
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().required().min(8),
+    }),
+  }),
   login);
 
 app.post('/signup',
-  // celebrate({
-  //   body: Joi.object().keys({
-  //     name: Joi.string().min(2).max(30),
-  //     about: Joi.string().min(2).max(30),
-  //     email: Joi.string().required().email(),
-  //     password: Joi.string().required().min(8),
-  //   }).unknown(true),
-  // }),
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().min(2).max(30),
+      about: Joi.string().min(2).max(30),
+      email: Joi.string().required().email(),
+      password: Joi.string().required().min(8),
+    }).unknown(true),
+  }),
   createUser);
 
 app.use(auth);
