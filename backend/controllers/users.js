@@ -6,16 +6,6 @@ const ValidationError = require('../errors/validation-error');
 const AuthorizationError = require('../errors/authorization-error');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-
-// function handleErr(err, res) {
-//   if (err.name === 'CastError' || 'ValidationError') {
-//     res.status(400).send({ message: err });
-//   } else if (err.name === 'DocumentNotFoundError') {
-//     throw new NotFoundError('No user with matching ID found');
-//   } else {
-//     res.status(500).send({ message: 'An error has occurred on the server' });
-//   }
-// }
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .orFail()
@@ -27,22 +17,6 @@ module.exports.getUsers = (req, res, next) => {
     })
     .catch(next);
 };
-
-// module.exports.getUser = (req, res, next) => {
-//   const { id } = req.params;///////////////////////////
-//   console.log(id);
-
-//   User.findById(id)
-
-//     .then((user) => {
-//       // console.log(user);
-//       if (!user) {
-//         throw new NotFoundError('No user with matching ID found');
-//       };
-//       res.send({ data: user });
-//     })
-//     .catch(next);
-// };
 
 module.exports.getCurrentUser = (req, res, next) => {
   const id = req.user._id;
@@ -66,7 +40,6 @@ module.exports.createUser = (req, res, next) => {
 
 
     .then((user) => {
-      console.log('reg', user);///////////////////////////////////
       if (!user) {
         const err = new Error('An email already exists');
         err.statusCode = 409;
@@ -127,11 +100,8 @@ module.exports.updateAvatar = (req, res, next) => {
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log('user_____', email);///////////////////////////////////////
-
   User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log('user_____', user);/////////////////////////////////////
       if (!user) {
         throw new AuthorizationError('Incorrect password or email');
       };
@@ -140,7 +110,6 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' }
       );
-      console.log(token);////////////////////////////////////////
       res.send({ token });
     })
     .catch(next);

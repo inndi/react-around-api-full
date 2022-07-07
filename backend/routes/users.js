@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const {
-  getUsers,
-  getUser,
   getCurrentUser,
   updateUser,
   updateAvatar,
@@ -15,16 +13,6 @@ const validateURL = (value, helpers) => {
   }
   return helpers.error('string.uri');
 }
-
-// router.get('/', getUsers);
-
-// router.get('/:id',
-//   // celebrate({
-//   //   params: Joi.object().keys({
-//   //     id: Joi.string().alphanum().length(24),
-//   //   }).unknown(true),
-//   // }),
-//   getUser);
 
 router.get('/me', getCurrentUser);
 
