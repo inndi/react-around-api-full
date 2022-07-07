@@ -25,38 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 
-
-// const allowedOrigins = [
-//   'https://around-the-us.students.nomoreparties.sbs',
-//   'http://around-the-us.students.nomoreparties.sbs',
-//   'http://localhost:3000'
-// ];
-
-// app.use(function (req, res, next) {
-//   const { origin } = req.headers; // assign the corresponding header to the origin variable
-
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-
-//   if (allowedOrigins.includes(origin)) { // check that the origin value is among the allowed domains
-//     res.header('Access-Control-Allow-Origin', origin);
-//   }
-
-//   // Respond to preflight OPTIONS requests
-//   if (req.method === 'OPTIONS') {
-//     res.send()
-//   } else {
-//     next();
-//   }
-// });
-
-
-
-mongoose.connect('mongodb://localhost:27017/test',
-  {
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect('mongodb://localhost:27017/test');
 
 app.use(requestLogger);
 
