@@ -1,0 +1,35 @@
+.popup__close-btn {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  background-image: url('../../../images/plus.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: rotate(45deg);
+  cursor: pointer;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  padding: 0;
+  border: none;
+  transition: opacity 0.2s linear;
+}
+
+@media screen and (max-width: 631px) {
+  .popup__close-btn {
+    width: 26px;
+    height: 26px;
+    top: -45px;
+    right: 5px;
+  }
+}
+
+@media screen and (max-width: 631px) {
+  .popup__card-container > .popup__close-btn {
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    right: -30px;
+  }
+}
