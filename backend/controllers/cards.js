@@ -35,11 +35,9 @@ module.exports.deleteCard = (req, res, next) => {
 
   Card.findById(id)
     .then((card) => {
-      // const cardOwner = card.owner;
-      // console.log(cardOwner);
-
-      // const cardOwnerId = cardOwner.toString();
-      // console.log(cardOwnerId);
+      if (!card) {
+        throw new NotFoundError('No card with matching ID found');
+      }
 
       if (userId == card.owner) {
         Card.findByIdAndRemove(id)
