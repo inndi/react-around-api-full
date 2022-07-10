@@ -38,23 +38,27 @@ module.exports.deleteCard = (req, res, next) => {
   console.log('2', owner);
   console.log('3', req.params);
 
-  if (ownerId === owner) {
-    console.log('1', ownerId);
-    console.log('2', owner);
-    console.log('3', req.params);
+  Card.findById(id)
+    .then((card) => {
+      console.log(card);
 
-    Card.findByIdAndRemove(id)
-      .orFail()
-      .then((removed) => {
-        if (!removed) {
-          throw new AuthorizationError('Authorization required');
-        };
-        res.send({ message: 'card deleted' });
-      })
-      .catch(next);
-  } else {
-    next(new AuthorizationError('Authorization required'));
-  };
+      if (ownerId === card.owner) {
+        Card.findByIdAndRemove(id)
+          .orFail()
+          .then((removed) => {
+            if (!removed) {
+              throw new AuthorizationError('Authorization required');
+            };
+            res.send({ message: 'card deleted' });
+          })
+          .catch(next);
+      } else {
+        next(new AuthorizationError('Authorization required'));
+      };
+    })
+    .catch(next);
+
+
 };
 
 module.exports.likeCard = (req, res, next) => {
