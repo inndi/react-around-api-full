@@ -34,6 +34,13 @@ module.exports.deleteCard = (req, res, next) => {
   const { id, owner } = req.params;
   const ownerId = req.user._id;
 
+  console.log('1', ownerId);
+  console.log('2', owner);
+  console.log('3', req.params);
+
+
+
+
   if (ownerId === owner) {
     Card.findByIdAndRemove(id)
       .orFail()
