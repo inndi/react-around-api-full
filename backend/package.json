@@ -15,7 +15,6 @@
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.18"
   },
   "dependencies": {
@@ -29,6 +28,7 @@
     "express-winston": "^4.2.0",
     "gitignore": "^0.7.0",
     "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.4",
     "pg-promise": "^10.11.1",
     "validator": "^13.7.0",

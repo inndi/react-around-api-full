@@ -1,8 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const { celebrate, Joi, errors } = require('celebrate');
-let cors = require('cors');
+const { errors } = require('celebrate');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -21,7 +21,6 @@ const {
   requestLogger,
   errorLogger,
 } = require('./middlewares/logger');
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,7 +47,7 @@ app.get('*', (req, res) => next(new NotFoundError('Requested resource not found'
 
 app.use(errorLogger);
 app.use(errors());
-app.use((err, req, res, next) => { handleError(err, res) });
+app.use((err, req, res, next) => { handleError(err, res); });
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

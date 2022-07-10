@@ -9,7 +9,7 @@ module.exports.getCards = (req, res, next) => {
     .then((cards) => {
       if (!cards) {
         throw new NotFoundError('No cards found');
-      };
+      }
       res.send(cards);
     })
     .catch(next);
@@ -25,7 +25,6 @@ module.exports.createCard = (req, res, next) => {
         throw new ValidationError('Invalid data');
       }
       res.send({ data: card });
-
     })
     .catch(next);
 };
@@ -34,35 +33,29 @@ module.exports.deleteCard = (req, res, next) => {
   const { id } = req.params;
   const userId = req.user._id;
 
-  console.log('1', ownerId);
-  console.log('2', owner);
-  console.log('3', req.params);
-
   Card.findById(id)
     .then((card) => {
-      const cardOwner = card.owner;
-      console.log(cardOwner);
+      // const cardOwner = card.owner;
+      // console.log(cardOwner);
 
-      const cardOwnerId = cardOwner.str;
-      console.log(cardOwnerId);
+      // const cardOwnerId = cardOwner.toString();
+      // console.log(cardOwnerId);
 
-      if (userId === cardOwnerId) {
+      if (userId == card.owner) {
         Card.findByIdAndRemove(id)
           .orFail()
           .then((removed) => {
             if (!removed) {
               throw new AuthorizationError('Authorization required');
-            };
+            }
             res.send({ message: 'card deleted' });
           })
           .catch(next);
       } else {
         next(new AuthorizationError('Authorization required'));
-      };
+      }
     })
     .catch(next);
-
-
 };
 
 module.exports.likeCard = (req, res, next) => {

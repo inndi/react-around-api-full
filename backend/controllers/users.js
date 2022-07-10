@@ -1,9 +1,11 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+
 const NotFoundError = require('../errors/not-found-error');
 const ValidationError = require('../errors/validation-error');
 const AuthorizationError = require('../errors/authorization-error');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = (req, res, next) => {
@@ -12,7 +14,7 @@ module.exports.getUsers = (req, res, next) => {
     .then((users) => {
       if (!users) {
         throw new NotFoundError('No users found');
-      };
+      }
       res.send({ data: users });
     })
     .catch(next);
@@ -25,18 +27,29 @@ module.exports.getCurrentUser = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new NotFoundError('No user with matching ID found');
-      };
+      }
       res.send({ data: user });
     })
     .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  } = req.body;
 
   return bcrypt.hash(password, 10)
-    .then(hash => User.create({ name, about, avatar, email, password: hash }))
-
+    .then(hash => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
 
     .then((user) => {
       if (!user) {
@@ -44,7 +57,7 @@ module.exports.createUser = (req, res, next) => {
         err.statusCode = 409;
 
         throw err;
-      };
+      }
       res.send(user);
     })
     .catch(next);
@@ -66,7 +79,7 @@ module.exports.updateUser = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new ValidationError('Invalid data');
-      };
+      }
       res.send({ data: user });
     })
     .catch(next);
@@ -88,13 +101,11 @@ module.exports.updateAvatar = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new ValidationError('Invalid data');
-      };
+      }
       res.send({ data: user });
     })
     .catch(next);
 };
-
-
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -103,14 +114,13 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new AuthorizationError('Incorrect password or email');
-      };
+      }
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        { expiresIn: '7d' }
+        { expiresIn: '7d' },
       );
       res.send({ token });
     })
     .catch(next);
-
 };

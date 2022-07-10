@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     minLength: 2,
     maxLength: 30,
-    default: "Jacques Cousteau",
+    default: 'Jacques Cousteau',
   },
   about: {
     type: String,
     minLength: 2,
     maxLength: 30,
-    default: "Explorer"
+    default: 'Explorer',
   },
   avatar: {
     type: String,
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid address!`,
     },
-    default: "https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg",
+    default: 'https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg',
   },
   email: {
     type: String,
@@ -57,8 +57,8 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
             return Promise.reject(new AuthorizationError('Incorrect password or email'));
           }
           return user;
-        })
-    })
+        });
+    });
 };
 
 module.exports = mongoose.model('user', userSchema);

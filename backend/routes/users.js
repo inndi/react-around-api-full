@@ -12,7 +12,7 @@ const validateURL = (value, helpers) => {
     return value;
   }
   return helpers.error('string.uri');
-}
+};
 
 router.get('/me', getCurrentUser);
 
