@@ -33,7 +33,6 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
-  console.log('ha');
 
   return bcrypt.hash(password, 10)
     .then(hash => User.create({ name, about, avatar, email, password: hash }))

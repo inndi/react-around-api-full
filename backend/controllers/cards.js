@@ -3,16 +3,6 @@ const NotFoundError = require('../errors/not-found-error');
 const ValidationError = require('../errors/validation-error');
 const AuthorizationError = require('../errors/authorization-error');
 
-// function handleErr(err, res) {
-//   if (err.name === 'CastError' || 'ValidationError') {
-//     res.status(400).send({ message: 'NotValid Data' });
-//   } else if (err.name === 'DocumentNotFoundError') {
-//     res.status(404).send({ message: 'Card not found' });
-//   } else {
-//     res.status(500).send({ message: 'An error has occurred on the server' });
-//   }
-// }
-
 module.exports.getCards = (req, res, next) => {
   Card.find({})
     .orFail()
@@ -41,17 +31,22 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  const { id } = req.params;
+  const { id, owner } = req.params;
+  const ownerId = req.user._id;
 
-  Card.findByIdAndRemove(id)
-    .orFail()
-    .then((removed) => {
-      if (!removed) {
-        throw new AuthorizationError('Authorization required');
-      };
-      res.send({ message: 'card deleted' });
-    })
-    .catch(next);
+  if (ownerId === owner) {
+    Card.findByIdAndRemove(id)
+      .orFail()
+      .then((removed) => {
+        if (!removed) {
+          throw new AuthorizationError('Authorization required');
+        };
+        res.send({ message: 'card deleted' });
+      })
+      .catch(next);
+  } else {
+    next(new AuthorizationError('Authorization required'));
+  };
 };
 
 module.exports.likeCard = (req, res, next) => {
