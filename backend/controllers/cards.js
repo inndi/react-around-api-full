@@ -43,7 +43,7 @@ module.exports.deleteCard = (req, res, next) => {
       const cardOwner = card.owner;
       console.log(cardOwner);
 
-      const cardOwnerId = cardOwner.toString();
+      const cardOwnerId = cardOwner.str;
       console.log(cardOwnerId);
 
       if (userId === cardOwnerId) {
