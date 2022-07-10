@@ -31,8 +31,8 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  const { id, owner } = req.params;
-  const ownerId = req.user._id;
+  const { id } = req.params;
+  const userId = req.user._id;
 
   console.log('1', ownerId);
   console.log('2', owner);
@@ -40,9 +40,13 @@ module.exports.deleteCard = (req, res, next) => {
 
   Card.findById(id)
     .then((card) => {
-      console.log(card.owner.str);
+      const cardOwner = card.owner;
+      console.log(cardOwner);
 
-      if (ownerId === card.owner) {
+      const cardOwnerId = cardOwner.toString();
+      console.log(cardOwnerId);
+
+      if (userId === card.owner) {
         Card.findByIdAndRemove(id)
           .orFail()
           .then((removed) => {
