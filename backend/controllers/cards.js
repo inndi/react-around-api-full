@@ -42,6 +42,10 @@ module.exports.deleteCard = (req, res, next) => {
     .then((card) => {
       console.log(card);
 
+      card.save((err, currCard) => {
+        console.log(currCard.owner);
+      });
+
       if (ownerId === card.owner) {
         Card.findByIdAndRemove(id)
           .orFail()
