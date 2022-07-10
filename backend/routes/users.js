@@ -17,6 +17,9 @@ const validateURL = (value, helpers) => {
 router.get('/me', getCurrentUser);
 
 router.patch('/me', celebrate({
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24),
+  }).unknown(true),
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(30),
@@ -24,6 +27,9 @@ router.patch('/me', celebrate({
 }), updateUser);
 
 router.patch('/me/avatar', celebrate({
+  params: Joi.object().keys({
+    id: Joi.string().hex().length(24),
+  }).unknown(true),
   body: Joi.object().keys({
     avatar: Joi.string().required().custom(validateURL),
   }),
