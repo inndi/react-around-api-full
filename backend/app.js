@@ -16,6 +16,7 @@ const signinRouter = require('./routes/signin');
 //   login
 // } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const { handleError } = require('./errors/error-handling');////////////////////
 const {
   requestLogger,
   errorLogger,
@@ -61,8 +62,8 @@ app.post('/signin', signinRouter);
 
 app.use(auth);
 
-app.use('/users', userRouter);
-app.use('/cards', cardRouter);
+app.use('/users', userRouter);///////////////////////////
+app.use('/cards', cardRouter);//////////////////////////////
 
 const { PORT = 3000 } = process.env;
 
@@ -70,21 +71,22 @@ app.get('*', (req, res) => res.status(404).send({ message: 'Requested resource n
 
 app.use(errorLogger);
 app.use(errors());
-app.use((err, req, res, next) => {
-  console.log(err.statusCode);
-  if (!err.statusCode) {
-    console.log('lalalala____', err);
-    const { statusCode = 500, message } = err;
-    return res
-      .status(statusCode)
-      .send({
-        message: statusCode === 500
-          ? 'An error occurred on the server'
-          : message
-      });
-  };
-  res.status(err.statusCode).send({ message: err.message });
-});
+app.use(handleError(err, req, res, next)///////////////////////////////
+  // (err, req, res, next) => {
+  // handleError(err, req, res, next);
+  // if (!err.statusCode) {
+  //   const { statusCode = 500, message } = err;
+  //   return res
+  //     .status(statusCode)
+  //     .send({
+  //       message: statusCode === 500
+  //         ? 'An error occurred on the server'
+  //         : message
+  //     });
+  // };
+  // res.status(err.statusCode).send({ message: err.message });
+  // }
+);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
