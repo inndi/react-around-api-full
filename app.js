@@ -22,13 +22,15 @@ const {
   errorLogger,
 } = require('./middlewares/logger');
 
+const { DB_ADDRESS } = process.env;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 app.options('*', cors());
 
-mongoose.connect('mongodb://0.0.0.0:27017/aroundtheus');
+mongoose.connect(DB_ADDRESS);
 
 app.use(requestLogger);
 app.use(helmet());
