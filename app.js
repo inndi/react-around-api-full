@@ -30,7 +30,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 
-mongoose.connect(DB_ADDRESS);
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(DB_ADDRESS, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
+
+connectToDatabase();
 
 app.use(requestLogger);
 app.use(helmet());
