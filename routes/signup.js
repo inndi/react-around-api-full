@@ -13,7 +13,6 @@ router.post(
       password: Joi.string().required().min(8),
     }).unknown(true),
   }),
-  createUser,
-);
+  createUser);
 
 module.exports = router;
